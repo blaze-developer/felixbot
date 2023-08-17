@@ -3,11 +3,10 @@
     "version": "1.0.0",
     "description": "Felix discord Bot :3",
     "main": "index.js",
-    "type": "module",
     "scripts": {
         "start": "nodemon .",
-        "regGuildCommands": "node registration/regGuild.js",
-        "regAppCommands": "node registration/regApp.js"
+        "regGuild": "node registration/regGuild.js",
+        "regApp": "node registration/regApp.js"
     },
     "keywords": [],
     "author": "BlazeDev",
