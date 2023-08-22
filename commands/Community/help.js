@@ -1,4 +1,8 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const {
+    SlashCommandBuilder,
+    EmbedBuilder,
+    SlashCommandStringOption
+} = require("discord.js");
 const fs = require("node:fs");
 const path = require("node:path");
 require("dotenv").config();
@@ -6,13 +10,23 @@ require("dotenv").config();
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("help")
-        .setDescription("Lists all the commands for the Felix bot :3"),
+        .setDescription("Lists all the commands for the Felix bot :3")
+        .addNumberOption((option) =>
+            option
+                .setName("category")
+                .setDescription("The category to get help for :3")
+                .addChoices(
+                    { name: "Community", value: 0 },
+                    { name: "Emotes", value: 2 }
+                )
+        ),
     async execute(interaction) {
         const categories = getCategories();
 
+        const categoryChoice = interaction.options.getNumber("category", false);
+
         await interaction.reply({
-            content: "Help command",
-            embeds: [generateCategoryEmbed(categories[2])]
+            embeds: [generateCategoryEmbed(categories[categoryChoice || 0])]
         });
     },
     devOnly: true,
@@ -60,7 +74,10 @@ function generateCategoryEmbed(category) {
             iconURL:
                 "https://cdn.discordapp.com/avatars/1141264397495447582/e1a0a2e5e5a386cedb1cce092d48d897.png"
         })
-        .addFields(fields);
+        .addFields(fields)
+        .setFooter({
+            text: "/help [category] for other command categories"
+        });
 
     return embed;
 }
