@@ -6,11 +6,16 @@ const path = require("node:path");
 
 const rest = new REST().setToken(process.env.TOKEN);
 
-const commands = [];
+const applicationCommands = [];
+const devServerCommands = [];
 
 function readCommand(command) {
     if (command && command.data && command.execute) {
-        commands.push(command.data.toJSON());
+        devServerCommands.push(command.data.toJSON());
+
+        if (!command.devOnly) {
+            applicationCommands.push(command.data.toJSON());
+        }
     } else {
         console.log(
             `[WARNING] There is one or more missing field at ${command.path}.`
@@ -20,17 +25,24 @@ function readCommand(command) {
 
 async function registerCommands() {
     try {
-        console.log(`Started refreshing ${commands.length} commands.`);
+        console.log(`Started refreshing ${devServerCommands.length} commands.`);
 
-        const data = await rest.put(
+        const devData = await rest.put(
             Routes.applicationGuildCommands(
                 process.env.CLIENT_ID,
                 process.env.GUILD_ID
             ),
-            { body: commands }
+            { body: devServerCommands }
         );
 
-        console.log(`Successfully refreshed ${data.length}`);
+        const publicData = await rest.put(
+            Routes.applicationCommands(process.env.CLIENT_ID),
+            { body: applicationCommands }
+        );
+
+        console.log(
+            `Successfully refreshed ${devData.length} total commands. ${publicData.length} are publicly available.`
+        );
     } catch (error) {
         console.error(error);
     }

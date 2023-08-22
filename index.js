@@ -29,11 +29,15 @@ for (const folder of subFolders) {
         const commandPath = path.join(folderPath, commandFile);
         const command = require(commandPath);
 
-        if ("data" in command && "execute" in command) {
+        if (
+            "data" in command &&
+            "execute" in command &&
+            "category" in command
+        ) {
             client.commands.set(command.data.name, command);
         } else {
             console.log(
-                `[WARNING] The command at ${commandPath} is missing a required "data" or "execute" property.`
+                `[WARNING] The command at ${commandPath} is missing a required "data", "execute", or "category" property.`
             );
         }
     }

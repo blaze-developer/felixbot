@@ -36,5 +36,6 @@ module.exports = {
             );
 
         interaction.editReply({ content: "", embeds: [embed] });
-    }
+    },
+    category: "Development"
 };

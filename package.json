@@ -4,7 +4,7 @@
     "description": "Felix discord Bot :3",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon .",
+        "start": "node .",
         "regCommands": "node registration/regCommands.js"
     },
     "keywords": [],

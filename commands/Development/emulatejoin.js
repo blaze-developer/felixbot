@@ -21,5 +21,7 @@ module.exports = {
         interaction.client.emit("guildMemberAdd", member);
 
         await interaction.reply({ content: "Done!", ephemeral: true });
-    }
+    },
+    devOnly: true,
+    category: "Development"
 };

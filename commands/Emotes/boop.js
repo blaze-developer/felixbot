@@ -11,6 +11,7 @@ module.exports = {
                 .setDescription("The user to boop! :3")
                 .setRequired(true)
         ),
+    category: "Emotes",
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: false });
 
@@ -31,6 +32,6 @@ module.exports = {
 };
 
 function randomGIF() {
-    const randomNumber = Math.floor(Math.random() * 60);
+    const randomNumber = Math.floor(Math.random() * 40);
     return `https://maki.gg/emote/poke/${randomNumber}.gif`;
 }

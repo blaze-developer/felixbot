@@ -15,7 +15,8 @@ module.exports = {
             embeds: [generateCategoryEmbed(categories[2])]
         });
     },
-    devOnly: true
+    devOnly: true,
+    category: "Community"
 };
 
 function getCategories() {

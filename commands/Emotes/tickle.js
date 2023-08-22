@@ -11,6 +11,7 @@ module.exports = {
                 .setDescription("The user to tickle! :3")
                 .setRequired(true)
         ),
+    category: "Emotes",
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: false });
 
