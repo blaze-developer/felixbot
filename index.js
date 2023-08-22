@@ -12,14 +12,14 @@ require("dotenv").config();
 
 // Vars and command reading.
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers]
+});
 
 client.commands = new Collection();
 
 const commandsFolder = path.join(__dirname, "commands");
-const subFolders = fs
-    .readdirSync(commandsFolder)
-    .filter((file) => file.endsWith(".js"));
+const subFolders = fs.readdirSync(commandsFolder);
 
 for (const folder of subFolders) {
     const folderPath = path.join(commandsFolder, folder);
@@ -33,7 +33,7 @@ for (const folder of subFolders) {
             client.commands.set(command.data.name, command);
         } else {
             console.log(
-                `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
+                `[WARNING] The command at ${commandPath} is missing a required "data" or "execute" property.`
             );
         }
     }
@@ -53,7 +53,9 @@ for (const eventFile of events) {
     console.log(event);
 
     if (event.name && event.listener) {
-        client.on(event.name, (...args) => event.listener(...args));
+        client.on(event.name, (...args) => {
+            event.listener(client, ...args);
+        });
     } else {
         console.log("One or more fields missing from event " + eventPath);
     }
@@ -84,7 +86,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
     } catch (error) {
         console.error(error);
         if (interaction.replied || interaction.deferred) {
-            await interaction.followUp({
+            await interaction.editReply({
                 content: "There was an error with this command!",
                 ephemeral: true
             });
