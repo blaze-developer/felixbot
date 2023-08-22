@@ -4,11 +4,12 @@ const {
     Embed,
     AttachmentBuilder
 } = require("discord.js");
+require("dotenv").config();
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("pet")
-        .setDescription("Generates a headpet gif :3")
+        .setDescription("Pets someone :3")
         .addUserOption((option) =>
             option
                 .setName("user")
@@ -23,7 +24,7 @@ module.exports = {
 
         const embed = new EmbedBuilder()
             .setTitle(`Headpets :3`)
-            .setColor("#a0c9e7")
+            .setColor(process.env.BOT_COLOR)
             .setDescription(`**${user}, ${interaction.user} pet u! :3**`);
         await interaction.editReply({
             files: [{ name: "headpat.gif", attachment: imageURL }],

@@ -13,7 +13,7 @@ function readCommand(command) {
         commands.push(command.data.toJSON());
     } else {
         console.log(
-            `[WARNING] There is one or more missing field at ${commandPath}.`
+            `[WARNING] There is one or more missing field at ${command.path}.`
         );
     }
 }
@@ -46,6 +46,7 @@ for (const folder of subFolders) {
     for (const commandFile of commands) {
         const commandPath = path.join(folderPath, commandFile);
         const command = require(commandPath);
+        command.path = commandPath;
 
         readCommand(command);
     }

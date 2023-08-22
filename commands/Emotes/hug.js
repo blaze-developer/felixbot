@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+require("dotenv").config();
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -19,7 +20,7 @@ module.exports = {
 
         const embed = new EmbedBuilder()
             .setTitle(`Huggies :3`)
-            .setColor("#a0c9e7")
+            .setColor(process.env.BOT_COLOR)
             .setDescription(`**${interaction.user} hugged ${user} <3**`)
             .setImage(randomGif);
 

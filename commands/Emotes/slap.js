@@ -1,19 +1,14 @@
-const {
-    SlashCommandBuilder,
-    EmbedBuilder,
-    Embed,
-    AttachmentBuilder
-} = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 require("dotenv").config();
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("pat")
-        .setDescription("Headpats someone! :3")
+        .setName("slap")
+        .setDescription("Slaps a meanie!")
         .addUserOption((option) =>
             option
                 .setName("user")
-                .setDescription("The user to pat! :3")
+                .setDescription("The user to slap! :(")
                 .setRequired(true)
         ),
     async execute(interaction) {
@@ -24,9 +19,9 @@ module.exports = {
         const randomGif = randomGIF();
 
         const embed = new EmbedBuilder()
-            .setTitle(`Headpat!`)
+            .setTitle(`Get slapped! (＃｀д´)ﾉ`)
             .setColor(process.env.BOT_COLOR)
-            .setDescription(`**${user}, ${interaction.user} headpatted u! :3**`)
+            .setDescription(`**${interaction.user} slapped ${user}!!**`)
             .setImage(randomGif);
 
         await interaction.editReply({
@@ -37,5 +32,5 @@ module.exports = {
 
 function randomGIF() {
     const randomNumber = Math.floor(Math.random() * 60);
-    return `https://maki.gg/emote/pat/${randomNumber}.gif`;
+    return `https://maki.gg/emote/slap/${randomNumber}.gif`;
 }

@@ -5,14 +5,14 @@
     "main": "index.js",
     "scripts": {
         "start": "nodemon .",
-        "regGuild": "node registration/regGuild.js",
-        "regApp": "node registration/regApp.js"
+        "regCommands": "node registration/regCommands.js"
     },
     "keywords": [],
     "author": "BlazeDev",
     "license": "ISC",
     "dependencies": {
         "discord.js": "^14.12.1",
-        "dotenv": "^16.3.1"
+        "dotenv": "^16.3.1",
+        "find-config": "^1.0.0"
     }
 }

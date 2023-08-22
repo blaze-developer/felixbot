@@ -81,6 +81,14 @@ client.on(Events.InteractionCreate, async (interaction) => {
         return;
     }
 
+    if (command.devOnly && interaction.guildId != process.env.GUILD_ID) {
+        await interaction.reply({
+            content:
+                "This command is only enabled in development servers at this time. Sorry :p"
+        });
+        return;
+    }
+
     try {
         await command.execute(interaction);
     } catch (error) {
