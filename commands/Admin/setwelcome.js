@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("discord.js");
-const { Guild } = require("../../schemas/Guild");
+const Guild = require("../../schemas/Guild.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,13 +16,28 @@ module.exports = {
     category: "Admin",
     devOnly: false,
     async execute(interaction) {
+        await interaction.deferReply();
+
         const channel = interaction.options.getChannel("channel");
+
+        const guildData = await Guild.findOneAndUpdate(
+            {
+                guildId: interaction.guildId
+            },
+            {
+                guildId: interaction.guildId,
+                config: {
+                    welcome: {
+                        channelId: channel.id
+                    }
+                }
+            },
+            { upsert: true }
+        );
 
         await channel.send("This is the welcome channel.");
 
-        console.log(channel);
-
-        await interaction.reply({
+        await interaction.editReply({
             content: "Welcome channel set!",
             ephemeral: true
         });

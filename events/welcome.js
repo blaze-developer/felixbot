@@ -1,9 +1,18 @@
 const { Events, AttachmentBuilder } = require("discord.js");
+const Guild = require("../schemas/Guild");
 
 module.exports = {
     name: Events.GuildMemberAdd,
     async listener(client, member) {
-        const channel = client.channels.cache.get("1141648698418405502");
+        const guildData = await Guild.findOne({
+            guildId: member.guild.id
+        }).catch((error) => console.log(error.message));
+
+        if (!guildData) return;
+
+        const channel = client.channels.cache.get(
+            guildData.config.welcome.channelId
+        );
 
         if (channel) {
             await channel.send({

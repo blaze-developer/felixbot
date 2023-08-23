@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const guildSchema = new mongoose.Schema({
-    guildid: String,
+    guildId: String,
     config: {
         welcome: {
-            channelid: String
+            channelId: String
         }
     }
 });
