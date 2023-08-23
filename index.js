@@ -7,10 +7,10 @@ const {
 } = require("discord.js");
 const fs = require("node:fs");
 const path = require("node:path");
+const mongoose = require("mongoose");
 
 require("dotenv").config();
-
-// Vars and command reading.
+await mongoose.connect(process.env.MONGO_URI);
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers]
