@@ -5,7 +5,6 @@ const {
 } = require("discord.js");
 const fs = require("node:fs");
 const path = require("node:path");
-require("dotenv").config();
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -29,7 +28,8 @@ module.exports = {
             embeds: [generateCategoryEmbed(categories[categoryChoice || 0])]
         });
     },
-    devOnly: true,
+
+    devOnly: false,
     category: "Community"
 };
 
