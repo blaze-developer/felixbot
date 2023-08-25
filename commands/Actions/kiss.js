@@ -2,15 +2,15 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("slap")
-        .setDescription("Slaps a meanie!")
+        .setName("kiss")
+        .setDescription("Kisses a user <3")
         .addUserOption((option) =>
             option
                 .setName("user")
-                .setDescription("The user to slap! :(")
+                .setDescription("The user to kiss! :3")
                 .setRequired(true)
         ),
-    category: "Emotes",
+    category: "Actions",
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: false });
 
@@ -19,9 +19,9 @@ module.exports = {
         const randomGif = randomGIF();
 
         const embed = new EmbedBuilder()
-            .setTitle(`Get slapped! (＃｀д´)ﾉ`)
+            .setTitle(`Ara ara~ <3!`)
             .setColor(process.env.BOT_COLOR)
-            .setDescription(`**${interaction.user} slapped ${user}!!**`)
+            .setDescription(`**${interaction.user} kissed ${user} <3**`)
             .setImage(randomGif);
 
         await interaction.editReply({
@@ -32,5 +32,5 @@ module.exports = {
 
 function randomGIF() {
     const randomNumber = Math.floor(Math.random() * 60);
-    return `https://maki.gg/emote/slap/${randomNumber}.gif`;
+    return `https://maki.gg/emote/kiss/${randomNumber}.gif`;
 }

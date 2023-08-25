@@ -5,6 +5,8 @@ const {
     EmbedBuilder
 } = require("discord.js");
 
+const Bot = require("../../schemas/Bot");
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("setactivity")
@@ -34,9 +36,25 @@ module.exports = {
         const activityType = interaction.options.getNumber("activity-type");
         const activityText = interaction.options.getString("activity");
 
-        await interaction.client.user.setActivity(activityText, {
-            type: activityType
+        const newActivity = {
+            type: activityType,
+            text: activityText
+        };
+
+        await Bot.findOneAndUpdate(
+            {},
+            {
+                activity: {
+                    name: activityText,
+                    activityType: activityType
+                }
+            },
+            { upsert: true }
+        ).catch((error) => {
+            console.error(error);
         });
+
+        await interaction.client.user.setActivity(activityText, newActivity);
 
         const embed = new EmbedBuilder()
             .setTitle("Activity Set!")

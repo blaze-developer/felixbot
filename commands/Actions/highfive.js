@@ -2,15 +2,15 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("tickle")
-        .setDescription("Tickles a user >:3")
+        .setName("highfive")
+        .setDescription("Gives a high five :3")
         .addUserOption((option) =>
             option
                 .setName("user")
-                .setDescription("The user to tickle! :3")
+                .setDescription("The user to high five :3")
                 .setRequired(true)
         ),
-    category: "Emotes",
+    category: "Actions",
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: false });
 
@@ -19,11 +19,9 @@ module.exports = {
         const randomGif = randomGIF();
 
         const embed = new EmbedBuilder()
-            .setTitle(`Tickless!!!! >:3`)
+            .setTitle(`High five! <3`)
             .setColor(process.env.BOT_COLOR)
-            .setDescription(
-                `**${user}! ${interaction.user} is tickling you!!! >:3**`
-            )
+            .setDescription(`**${user}, ${interaction.user} high fived u :3**`)
             .setImage(randomGif);
 
         await interaction.editReply({
@@ -34,5 +32,5 @@ module.exports = {
 
 function randomGIF() {
     const randomNumber = Math.floor(Math.random() * 60);
-    return `https://maki.gg/emote/tickle/${randomNumber}.gif`;
+    return `https://maki.gg/emote/highfive/${randomNumber}.gif`;
 }

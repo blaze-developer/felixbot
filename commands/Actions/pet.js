@@ -15,7 +15,7 @@ module.exports = {
                 .setDescription("The user to generate the GIF of :3")
                 .setRequired(true)
         ),
-    category: "Emotes",
+    category: "Actions",
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: false });
 

@@ -5,6 +5,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("setwelcome")
         .setDescription("Sets the welcome channel for this server")
+        .setDMPermission(false)
         .addChannelOption((option) =>
             option
                 .setName("channel")
@@ -35,10 +36,8 @@ module.exports = {
             { upsert: true }
         );
 
-        await channel.send("This is the welcome channel.");
-
         await interaction.editReply({
-            content: "Welcome channel set!",
+            content: "Welcome channel set :3",
             ephemeral: true
         });
     }

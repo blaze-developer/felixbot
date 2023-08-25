@@ -15,8 +15,10 @@ module.exports = {
                 .setName("category")
                 .setDescription("The category to get help for :3")
                 .addChoices(
-                    { name: "Community", value: 0 },
-                    { name: "Emotes", value: 2 }
+                    { name: "Community", value: 2 },
+                    { name: "Actions", value: 0 },
+                    { name: "Emotes", value: 4 },
+                    { name: "Admin", value: 1 }
                 )
         ),
     async execute(interaction) {

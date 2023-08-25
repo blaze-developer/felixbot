@@ -2,26 +2,28 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("hug")
-        .setDescription("Hugs a user <3")
+        .setName("feed")
+        .setDescription("Feeds a user :3")
         .addUserOption((option) =>
             option
                 .setName("user")
-                .setDescription("The user to give huggies! :3")
+                .setDescription("The user to food delicious food! :3")
                 .setRequired(true)
         ),
-    category: "Emotes",
+    category: "Actions",
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: false });
 
         const user = interaction.options.getUser("user");
 
-        const randomGif = randomGIF();
+        const randomGif = await randomGIF();
 
         const embed = new EmbedBuilder()
-            .setTitle(`Huggies :3`)
+            .setTitle(`Yummies :3`)
             .setColor(process.env.BOT_COLOR)
-            .setDescription(`**${interaction.user} hugged ${user} <3**`)
+            .setDescription(
+                `**${user}, ${interaction.user} is feeding u! :3 <3**`
+            )
             .setImage(randomGif);
 
         await interaction.editReply({
@@ -30,7 +32,9 @@ module.exports = {
     }
 };
 
-function randomGIF() {
-    const randomNumber = Math.floor(Math.random() * 60);
-    return `https://maki.gg/emote/hug/${randomNumber}.gif`;
+async function randomGIF() {
+    const response = await fetch("https://nekos.best/api/v2/feed");
+    const data = await response.json();
+
+    return data.results[0].url;
 }
