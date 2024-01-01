@@ -7,6 +7,7 @@ const guildSchema = new mongoose.Schema({
             channelId: String
         }
     }
+    // ,members: [memberSchema]
 });
 
 module.exports = mongoose.model("Guild", guildSchema);

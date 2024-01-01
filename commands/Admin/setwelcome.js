@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 const Guild = require("../../schemas/Guild.js");
 
 module.exports = {
@@ -6,6 +6,7 @@ module.exports = {
         .setName("setwelcome")
         .setDescription("Sets the welcome channel for this server")
         .setDMPermission(false)
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addChannelOption((option) =>
             option
                 .setName("channel")

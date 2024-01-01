@@ -2,7 +2,8 @@ const {
     SlashCommandBuilder,
     Activity,
     ActivityType,
-    EmbedBuilder
+    EmbedBuilder,
+    PermissionFlagsBits
 } = require("discord.js");
 
 const Bot = require("../../schemas/Bot");
@@ -11,6 +12,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("setactivity")
         .setDescription("Sets the activity of the Felix discord bot :3")
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addNumberOption((option) =>
             option
                 .setName("activity-type")
