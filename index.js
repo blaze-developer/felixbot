@@ -57,7 +57,10 @@ for (const eventFile of events) {
     const eventPath = path.join(eventsFolder, eventFile);
     const event = require(eventPath);
 
-    console.log(event);
+    if (event.enabled == false) {
+        console.log(`${eventFile} event is disabled.`);
+        continue;
+    }
 
     if (event.name && event.listener) {
         client.on(event.name, (...args) => {

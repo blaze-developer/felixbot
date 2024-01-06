@@ -3,6 +3,7 @@ const LevelManager = require("../modules/LevelManager");
 
 module.exports = {
     name: Events.MessageCreate,
+    enabled: false,
     async listener(client, message) {
         if (message.author.bot) {
             return;
