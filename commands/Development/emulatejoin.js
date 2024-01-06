@@ -24,6 +24,6 @@ module.exports = {
 
         await interaction.reply({ content: "Done!", ephemeral: true });
     },
-    devOnly: true,
+    devOnly: false,
     category: "Development"
 };

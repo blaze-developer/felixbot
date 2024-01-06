@@ -43,20 +43,7 @@ module.exports = {
             text: activityText
         };
 
-        await Bot.findOneAndUpdate(
-            {},
-            {
-                activity: {
-                    name: activityText,
-                    activityType: activityType
-                }
-            },
-            { upsert: true }
-        ).catch((error) => {
-            console.error(error);
-        });
-
-        await interaction.client.user.setActivity(activityText, newActivity);
+        await interaction.client.user.setActivity(newActivity);
 
         const embed = new EmbedBuilder()
             .setTitle("Activity Set!")
