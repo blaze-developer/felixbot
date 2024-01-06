@@ -32,7 +32,10 @@ module.exports = {
                         sent.createdTimestamp - interaction.createdTimestamp
                     }ms`
                 }
-            );
+            )
+            .setFooter({
+                text: `Felix Bot v${interaction.client.version}`
+            });
 
         interaction.editReply({ content: "", embeds: [embed] });
     },

@@ -8,6 +8,7 @@ const {
 const fs = require("node:fs");
 const path = require("node:path");
 const mongoose = require("mongoose");
+const package = require("./package.json");
 
 require("dotenv").config();
 
@@ -20,6 +21,7 @@ const client = new Client({
 });
 
 client.commands = new Collection();
+client.version = package.version;
 
 const commandsFolder = path.join(__dirname, "commands");
 const subFolders = fs.readdirSync(commandsFolder);
