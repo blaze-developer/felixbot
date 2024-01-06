@@ -1,6 +1,6 @@
 {
     "name": "felix-bot",
-    "version": "1.0.2",
+    "version": "1.1.0",
     "description": "Felix discord Bot :3",
     "main": "index.js",
     "scripts": {
