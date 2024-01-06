@@ -6,8 +6,6 @@ const {
     PermissionFlagsBits
 } = require("discord.js");
 
-const Bot = require("../../schemas/Bot");
-
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("setactivity")
@@ -40,7 +38,7 @@ module.exports = {
 
         const newActivity = {
             type: activityType,
-            text: activityText
+            name: activityText
         };
 
         await interaction.client.user.setActivity(newActivity);

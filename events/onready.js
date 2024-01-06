@@ -1,5 +1,4 @@
 const { Events, ActivityType } = require("discord.js");
-const Bot = require("../schemas/Bot");
 
 module.exports = {
     name: Events.ClientReady,
