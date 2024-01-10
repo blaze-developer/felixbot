@@ -6,7 +6,7 @@ module.exports = {
     async listener(client, member) {
         const guildData = await Guild.findOne({
             guildId: member.guild.id
-        }).catch((error) => console.log(error.message));
+        });
 
         if (!guildData) return;
 

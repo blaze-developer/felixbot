@@ -33,6 +33,7 @@ module.exports = {
         await interaction.reply({ content: "Xp Added!", ephemeral: true });
     },
     category: "Admin",
-    devOnly: false
+    devOnly: false,
+    enabled: false
 };
 // this is a commnet

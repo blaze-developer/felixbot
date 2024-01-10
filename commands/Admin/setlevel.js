@@ -28,6 +28,7 @@ module.exports = {
         await interaction.reply({ content: "Level set!", ephemeral: true });
     },
     category: "Admin",
-    devOnly: false
+    devOnly: false,
+    enabled: false
 };
 // this is a commnet

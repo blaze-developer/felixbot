@@ -3,7 +3,9 @@ const {
     Events,
     Client,
     GatewayIntentBits,
-    Collection
+    Collection,
+    EmbedBuilder,
+    time
 } = require("discord.js");
 const fs = require("node:fs");
 const path = require("node:path");
@@ -65,8 +67,28 @@ for (const eventFile of events) {
     }
 
     if (event.name && event.listener) {
-        client.on(event.name, (...args) => {
-            event.listener(client, ...args);
+        client.on(event.name, async (...args) => {
+            try {
+                await event.listener(client, ...args);
+            } catch (error) {
+                console.error(error);
+                const channel = client.channels.cache.get(
+                    "1194467447705718856"
+                );
+
+                channel.send({
+                    embeds: [
+                        new EmbedBuilder()
+                            .setTitle("Event Error!")
+                            .setColor(process.env.BOT_COLOR)
+                            .setDescription(
+                                `Error for event ${eventFile} at ${time(
+                                    new Date()
+                                )}\n\n\`\`\`\n${error.stack}\n\`\`\``
+                            )
+                    ]
+                });
+            }
         });
     } else {
         console.log("One or more fields missing from event " + eventPath);
@@ -83,10 +105,19 @@ client.on(Events.InteractionCreate, async (interaction) => {
         return;
     }
 
+    if (command.enabled == false) {
+        await interaction.reply({
+            content: "This command is disabled.",
+            ephemeral: true
+        });
+        return;
+    }
+
     if (command.devOnly && interaction.guildId != process.env.GUILD_ID) {
         await interaction.reply({
             content:
-                "This command is only enabled in development servers at this time. Sorry :p"
+                "This command is only enabled in development servers at this time. Sorry :p",
+            ephemeral: true
         });
         return;
     }
@@ -95,16 +126,33 @@ client.on(Events.InteractionCreate, async (interaction) => {
         await command.execute(interaction);
     } catch (error) {
         console.error(error);
+
+        const channel = client.channels.cache.get("1194467447705718856");
+
+        channel.send({
+            embeds: [
+                new EmbedBuilder()
+                    .setTitle("Command Error!")
+                    .setColor(process.env.BOT_COLOR)
+                    .setDescription(
+                        `Error for command ${interaction.commandName} in ${
+                            interaction.guild.name
+                        } at ${time(new Date())}\n\n\`\`\`\n${
+                            error.stack
+                        }\n\`\`\``
+                    )
+            ]
+        });
+
+        let errorMessage = {
+            content: "There was an error with this command!",
+            ephemeral: true
+        };
+
         if (interaction.replied || interaction.deferred) {
-            await interaction.editReply({
-                content: "There was an error with this command!",
-                ephemeral: true
-            });
+            await interaction.editReply(errorMessage);
         } else {
-            await interaction.reply({
-                content: "There was an error with this command!",
-                ephemeral: true
-            });
+            await interaction.reply(errorMessage);
         }
     }
 });
