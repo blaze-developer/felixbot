@@ -44,7 +44,7 @@ for (const folder of subFolders) {
             client.commands.set(command.data.name, command);
         } else {
             console.log(
-                `[WARNING] The command at ${commandPath} is missing a required "data", "execute", or "category" property.`
+                `[WARNING] The command at ${commandPath} is missing a required \"data\", \"execute\", or \"category\" property.`
             );
         }
     }
