@@ -1,11 +1,28 @@
 const mongoose = require("mongoose");
 
 const guildSchema = new mongoose.Schema({
-    guildId: String,
+    guildId: {
+        type: String,
+        required: true
+    },
     config: {
         welcome: {
-            channelId: String
+            channelId: {
+                type: String,
+                default: ""
+            },
+            enabled: {
+                type: Boolean,
+                default: false
+            }
         }
+        // intros: {
+        //     channelId: String,
+        //     enabled: {
+        //         type: Boolean,
+        //         default: false
+        //     }
+        // }
     }
     // ,members: [memberSchema]
 });

@@ -4,22 +4,32 @@ const Guild = require("../schemas/Guild");
 module.exports = {
     name: Events.GuildMemberAdd,
     async listener(client, member) {
-        const guildData = await Guild.findOne({
+        let guildData = await Guild.findOne({
             guildId: member.guild.id
         });
 
-        if (!guildData) return;
+        if (!guildData) {
+            guildData = new Guild({
+                guildId: member.guild.id
+            });
+        }
+
+        if (!guildData.config.welcome.enabled) {
+            return;
+        }
 
         const channel = client.channels.cache.get(
             guildData.config.welcome.channelId
         );
 
-        if (channel) {
-            await channel.send({
-                content: `User ${member.user} joined! Welcome to the femboy party! <3`,
-                files: [generatePopcat(member)]
-            });
+        if (!channel) {
+            return;
         }
+
+        await channel.send({
+            content: `User ${member.user} joined! Welcome to the femboy party! <3`,
+            files: [generatePopcat(member)]
+        });
     }
 };
 

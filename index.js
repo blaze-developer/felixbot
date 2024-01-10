@@ -83,7 +83,7 @@ for (const eventFile of events) {
                             .setColor(process.env.BOT_COLOR)
                             .setDescription(
                                 `Error for event ${eventFile} at ${time(
-                                    new Date()
+                                    Date.now()
                                 )}\n\n\`\`\`\n${error.stack}\n\`\`\``
                             )
                     ]
@@ -137,7 +137,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
                     .setDescription(
                         `Error for command ${interaction.commandName} in ${
                             interaction.guild.name
-                        } at ${time(new Date())}\n\n\`\`\`\n${
+                        } at ${time(Date.now())}\n\n\`\`\`\n${
                             error.stack
                         }\n\`\`\``
                     )
