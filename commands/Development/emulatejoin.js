@@ -18,7 +18,7 @@ module.exports = {
             "1054636706684489728"
         );
 
-        const member = guild.members.cache.get(user.id);
+        const member = await guild.members.fetch(user.id);
 
         interaction.client.emit("guildMemberAdd", member);
 
