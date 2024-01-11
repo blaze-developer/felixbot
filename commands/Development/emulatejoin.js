@@ -14,9 +14,7 @@ module.exports = {
         ),
     async execute(interaction) {
         const user = interaction.options.getUser("user");
-        const guild = interaction.client.guilds.cache.get(
-            "1054636706684489728"
-        );
+        const guild = interaction.guild;
 
         const member = await guild.members.fetch(user.id);
 
