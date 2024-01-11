@@ -15,14 +15,21 @@ const guildSchema = new mongoose.Schema({
                 type: Boolean,
                 default: false
             }
+        },
+        intros: {
+            channelId: {
+                type: String,
+                default: ""
+            },
+            approvalChannelId: {
+                type: String,
+                default: ""
+            },
+            enabled: {
+                type: Boolean,
+                default: false
+            }
         }
-        // intros: {
-        //     channelId: String,
-        //     enabled: {
-        //         type: Boolean,
-        //         default: false
-        //     }
-        // }
     }
     // ,members: [memberSchema]
 });

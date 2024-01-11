@@ -36,6 +36,13 @@ module.exports = {
         if (subcommand === "enabled") {
             const enabled = interaction.options.getBoolean("enabled", true);
 
+            if (enabled && guildData.config.welcome.channelId === "") {
+                await interaction.editReply(
+                    "Sorry, you cannot enable welcome messages without configuring the welcome channel first."
+                );
+                return;
+            }
+
             guildData.config.welcome.enabled = enabled;
 
             await guildData.save();
