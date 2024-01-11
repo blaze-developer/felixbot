@@ -14,6 +14,7 @@
         "discord.js": "^14.12.1",
         "dotenv": "^16.3.1",
         "find-config": "^1.0.0",
-        "mongoose": "^7.4.4"
+        "mongoose": "^7.4.4",
+        "string-template-parser": "^1.2.6"
     }
 }

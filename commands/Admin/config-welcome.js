@@ -31,6 +31,54 @@ module.exports = {
             await guildData.save();
 
             await interaction.editReply("Channel set :3");
+            return;
+        }
+
+        if (subcommand === "message") {
+            const message = interaction.options.getString("message", true);
+            guildData.config.welcome.message = message;
+
+            await guildData.save();
+            await interaction.editReply("Welcome message set!");
+            return;
+        }
+
+        if (subcommand === "card") {
+            const text = interaction.options.getString("text");
+            const subtext = interaction.options.getString("subtext");
+            const background = interaction.options.getString("background-url");
+
+            let optionsChanged = 0;
+
+            if (text) {
+                guildData.config.welcome.image.text = text;
+                optionsChanged++;
+            }
+
+            if (subtext) {
+                guildData.config.welcome.image.subtext = subtext;
+                optionsChanged++;
+            }
+
+            if (background) {
+                guildData.config.welcome.image.background = background;
+                optionsChanged++;
+            }
+
+            if (optionsChanged == 0) {
+                await interaction.editReply(
+                    "You didnt set any options to change for the welcome card."
+                );
+                return;
+            }
+
+            await guildData.save();
+            await interaction.editReply(
+                `Successfully set ${optionsChanged} welcome card option${
+                    optionsChanged > 1 ? "s" : ""
+                } :3`
+            );
+            return;
         }
 
         if (subcommand === "enabled") {
@@ -52,6 +100,7 @@ module.exports = {
                     ? "Welcome messages enabled :3"
                     : "Welcome messages disabled :3"
             });
+            return;
         }
     },
     data: new SlashCommandBuilder()
@@ -72,6 +121,41 @@ module.exports = {
                             "The channel to set as the welcome channel."
                         )
                         .setRequired(true)
+                )
+        )
+        .addSubcommand((subcommand) =>
+            subcommand
+                .setName("message")
+                .setDescription(
+                    "Sets the message to be shown on welcome messages <3"
+                )
+                .addStringOption((option) =>
+                    option
+                        .setName("message")
+                        .setDescription("The message to be shown.")
+                        .setRequired(true)
+                )
+        )
+        .addSubcommand((subcommand) =>
+            subcommand
+                .setName("card")
+                .setDescription("Configures the welcome cards text and images.")
+                .addStringOption((option) =>
+                    option
+                        .setName("text")
+                        .setDescription("The first line of text.")
+                )
+                .addStringOption((option) =>
+                    option
+                        .setName("subtext")
+                        .setDescription("The second line of text.")
+                )
+                .addStringOption((option) =>
+                    option
+                        .setName("background-url")
+                        .setDescription(
+                            "The direct url to the welcome cards background image. (.png, .jpg)"
+                        )
                 )
         )
         .addSubcommand((subcommand) =>

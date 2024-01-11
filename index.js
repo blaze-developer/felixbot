@@ -2,7 +2,8 @@ const {
     Client,
     GatewayIntentBits,
     Collection,
-    EmbedBuilder
+    EmbedBuilder,
+    time
 } = require("discord.js");
 const fs = require("node:fs");
 const path = require("node:path");
@@ -93,7 +94,11 @@ for (const eventFile of events) {
     }
 }
 
-mongoose.connect(process.env.MONGO_URI).then(() => {
-    console.log("Mongoose Connected!");
-    client.login(process.env.TOKEN);
-});
+mongoose
+    .connect(process.env.MONGO_URI, {
+        dbName: process.env.DATABASE_NAME
+    })
+    .then(() => {
+        console.log("Mongoose Connected!");
+        client.login(process.env.TOKEN);
+    });
