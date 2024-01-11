@@ -46,9 +46,19 @@ module.exports = {
         const approveButton = new ButtonBuilder()
             .setCustomId("intro-approve")
             .setLabel("Approve")
+            .setEmoji("👍")
             .setStyle(ButtonStyle.Success);
 
-        const actionRow = new ActionRowBuilder().addComponents(approveButton);
+        const denyButton = new ButtonBuilder()
+            .setCustomId("intro-deny")
+            .setLabel("Deny")
+            .setEmoji("👎")
+            .setStyle(ButtonStyle.Danger);
+
+        const actionRow = new ActionRowBuilder().addComponents(
+            approveButton,
+            denyButton
+        );
 
         const prompt = approvalChannel.send({
             content: message.content,

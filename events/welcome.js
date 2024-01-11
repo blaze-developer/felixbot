@@ -2,7 +2,8 @@ const { Events, AttachmentBuilder } = require("discord.js");
 const Guild = require("../schemas/Guild");
 const {
     parseStringTemplate,
-    evaluateParsedString
+    evaluateParsedString,
+    evaluateStringTemplate
 } = require("string-template-parser");
 const { parse } = require("dotenv");
 const PopcatGenerator = require("../modules/PopcatGenerator");
@@ -33,12 +34,10 @@ module.exports = {
         }
 
         await channel.send({
-            content: evaluateParsedString(
-                parseStringTemplate(guildData.config.welcome.message),
-                {
-                    user: `${member.user}`
-                }
-            ),
+            content: evaluateStringTemplate(guildData.config.welcome.message, {
+                user: `${member.user}`,
+                server: member.guild.name
+            }),
             files: [
                 {
                     attachment: PopcatGenerator.generateWelcomeCard(

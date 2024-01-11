@@ -18,7 +18,8 @@ module.exports = {
                     { name: "Community", value: 2 },
                     { name: "Actions", value: 0 },
                     { name: "Emotes", value: 4 },
-                    { name: "Admin", value: 1 }
+                    { name: "Admin", value: 1 },
+                    { name: "Moderation", value: 5 }
                 )
         ),
     async execute(interaction) {
