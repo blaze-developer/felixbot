@@ -1,5 +1,5 @@
 const { Events, ActivityType } = require("discord.js");
-const activities = require("../config/activities.json");
+const activities = require("../config/activities.js");
 
 const statusIntervalSecs = 10;
 
