@@ -15,16 +15,12 @@ module.exports = {
             guildId: member.guild.id
         });
 
-        if (!guildData) {
-            guildData = new Guild({
-                guildId: member.guild.id
-            });
-        }
-
-        if (!guildData.config.welcome.enabled) {
+        // Checks if welcome is enabled and that the data loaded correctly
+        if (!guildData?.config?.welcome?.enabled) {
             return;
         }
 
+        // Gets the channel object to send to
         const channel = client.channels.cache.get(
             guildData.config.welcome.channelId
         );

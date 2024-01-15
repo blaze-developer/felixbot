@@ -24,6 +24,7 @@ const client = new Client({
 client.commands = new Collection();
 client.version = package.version;
 
+// Commands Loading
 const commandsFolder = path.join(__dirname, "commands");
 const subFolders = fs.readdirSync(commandsFolder);
 
@@ -49,7 +50,7 @@ for (const folder of subFolders) {
     }
 }
 
-// Event Reading init
+// Events Loading
 
 const eventsFolder = path.join(__dirname, "events");
 const events = fs
@@ -93,6 +94,8 @@ for (const eventFile of events) {
         console.log("One or more fields missing from event " + eventPath);
     }
 }
+
+// Logging in and mongo auth
 
 mongoose
     .connect(process.env.MONGO_URI, {

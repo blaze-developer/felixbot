@@ -17,12 +17,8 @@ module.exports = {
         // Fetch Database Data
         let guildData = await Guild.findOne({ guildId: message.guildId });
 
-        if (!guildData) {
-            guildData = new Guild({ guildId: message.guildId });
-        }
-
-        // Check if enabled
-        if (!guildData.config.intros.enabled) {
+        // Check if not enabled or data didnt load correctly
+        if (!guildData?.config?.intros?.enabled) {
             return;
         }
 
