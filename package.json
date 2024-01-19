@@ -2,10 +2,10 @@
     "name": "felix-bot",
     "version": "1.2.0",
     "description": "Felix discord Bot :3",
-    "main": "index.js",
+    "main": "dist/index.js",
     "scripts": {
-        "start": "nodemon .",
-        "regCommands": "node registration/regCommands.js"
+        "dev": "tsx --watch src/index.ts",
+        "regCommands": "node scripts/regCommands.js"
     },
     "keywords": [],
     "author": "BlazeDev",
@@ -16,5 +16,9 @@
         "find-config": "^1.0.0",
         "mongoose": "^7.4.4",
         "string-template-parser": "^1.2.6"
+    },
+    "devDependencies": {
+        "@types/node": "^20.11.5",
+        "tsx": "^4.7.0"
     }
 }
