@@ -2,14 +2,15 @@
     "compilerOptions": {
         "target": "ESNext",
         "moduleResolution": "Node",
-        "module": "CommonJS",
+        "module": "ESNext",
         "skipLibCheck": true,
         "strict": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
         "resolveJsonModule": true,
         "typeRoots": ["src/@types", "node_modules/@types"],
-        "outDir": "dist"
+        "outDir": "dist",
+        "esModuleInterop": true
     },
     "include": ["src", "registration"],
     "exclude": ["node_modules"]

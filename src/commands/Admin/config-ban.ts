@@ -25,10 +25,7 @@ module.exports = {
         }
 
         if (subcommand === "channel") {
-            const channelId = interaction.options.getChannel(
-                "channel",
-                true
-            ).id;
+            const channelId = interaction.options.getChannel("channel", true).id;
 
             guildData.config.ban.announcement.channel = channelId;
 
@@ -54,9 +51,7 @@ module.exports = {
             await guildData.save();
 
             await interaction.editReply({
-                content: enabled
-                    ? "Ban annoucements enabled :3"
-                    : "Ban announcements disabled :3"
+                content: enabled ? "Ban annoucements enabled :3" : "Ban announcements disabled :3"
             });
         }
     },
@@ -68,9 +63,7 @@ module.exports = {
         .addSubcommand((subcommand) =>
             subcommand
                 .setName("channel")
-                .setDescription(
-                    "Sets the channel for ban annoucements to be posted."
-                )
+                .setDescription("Sets the channel for ban annoucements to be posted.")
                 .addChannelOption((option) =>
                     option
                         .setName("channel")

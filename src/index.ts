@@ -1,11 +1,22 @@
 import { Client, GatewayIntentBits, Collection, EmbedBuilder, time, ChannelType } from "discord.js";
 
 import { readdirSync } from "node:fs";
-import { join as pathJoin } from "node:path";
+import path, { dirname, join as pathJoin } from "node:path";
 import mongoose from "mongoose";
-const nodePackage = require("../package.json");
+import nodePackage from "../package.json";
+import dotenv from "dotenv";
+import { fileURLToPath } from "node:url";
+import { createRequire } from "module";
 
-require("dotenv").config();
+const require = createRequire(import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+dotenv.config();
+
+await mongoose.connect(process.env.MONGO_URI ?? "", {
+    dbName: process.env.DATABASE_NAME
+});
 
 const client: Client = new Client({
     intents: [
@@ -32,6 +43,7 @@ for (const folder of subFolders) {
 
     for (const commandFile of commands) {
         const commandPath = pathJoin(folderPath, commandFile);
+
         const command = require(commandPath);
 
         if ("data" in command && "execute" in command && "category" in command) {
@@ -95,11 +107,4 @@ console.log("Events loaded!");
 
 // Logging in and mongo auth
 
-mongoose
-    .connect(process.env.MONGO_URI ?? "", {
-        dbName: process.env.DATABASE_NAME
-    })
-    .then(() => {
-        console.log("Mongoose Connected!");
-        client.login(process.env.TOKEN);
-    });
+client.login(process.env.TOKEN);

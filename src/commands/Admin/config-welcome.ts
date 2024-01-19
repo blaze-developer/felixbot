@@ -97,9 +97,7 @@ module.exports = {
             await guildData.save();
 
             await interaction.editReply({
-                content: enabled
-                    ? "Welcome messages enabled :3"
-                    : "Welcome messages disabled :3"
+                content: enabled ? "Welcome messages enabled :3" : "Welcome messages disabled :3"
             });
             return;
         }
@@ -112,24 +110,18 @@ module.exports = {
         .addSubcommand((subcommand) =>
             subcommand
                 .setName("channel")
-                .setDescription(
-                    "Sets the channel to put welcome messages in :3"
-                )
+                .setDescription("Sets the channel to put welcome messages in :3")
                 .addChannelOption((option) =>
                     option
                         .setName("channel")
-                        .setDescription(
-                            "The channel to set as the welcome channel."
-                        )
+                        .setDescription("The channel to set as the welcome channel.")
                         .setRequired(true)
                 )
         )
         .addSubcommand((subcommand) =>
             subcommand
                 .setName("message")
-                .setDescription(
-                    "Sets the message to be shown on welcome messages <3"
-                )
+                .setDescription("Sets the message to be shown on welcome messages <3")
                 .addStringOption((option) =>
                     option
                         .setName("message")
@@ -142,14 +134,10 @@ module.exports = {
                 .setName("card")
                 .setDescription("Configures the welcome cards text and images.")
                 .addStringOption((option) =>
-                    option
-                        .setName("text")
-                        .setDescription("The first line of text.")
+                    option.setName("text").setDescription("The first line of text.")
                 )
                 .addStringOption((option) =>
-                    option
-                        .setName("subtext")
-                        .setDescription("The second line of text.")
+                    option.setName("subtext").setDescription("The second line of text.")
                 )
                 .addStringOption((option) =>
                     option
@@ -162,15 +150,11 @@ module.exports = {
         .addSubcommand((subcommand) =>
             subcommand
                 .setName("enabled")
-                .setDescription(
-                    "Enables and disables the welcome channel messages in this server."
-                )
+                .setDescription("Enables and disables the welcome channel messages in this server.")
                 .addBooleanOption((option) =>
                     option
                         .setName("enabled")
-                        .setDescription(
-                            "Whether or not to enable the welcome messages."
-                        )
+                        .setDescription("Whether or not to enable the welcome messages.")
                         .setRequired(true)
                 )
         ),
