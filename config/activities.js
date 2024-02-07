@@ -1,7 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const { ActivityType } = require("discord.js");
-exports.default = [
+
+module.exports = [
     {
         type: ActivityType.Playing,
         name: "Get Jazzy on 'em"
