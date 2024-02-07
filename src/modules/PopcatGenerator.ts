@@ -1,7 +1,12 @@
 import { GuildMember } from "discord.js";
 
 export default {
-    generateWelcomeCard(background: string, member: GuildMember, text: string, subtext: string) {
+    generateWelcomeCard(
+        background: string,
+        member: GuildMember,
+        text: string,
+        subtext: string
+    ) {
         const avatar = member.user.avatarURL({ extension: "png" });
 
         if (!avatar) {
@@ -11,8 +16,10 @@ export default {
 
         return `https://api.popcat.xyz/welcomecard?background=${encodeURIComponent(
             background
-        )}&text1=${encodeURIComponent(member.user.username)}&text2=${encodeURIComponent(
-            text
-        )}&text3=${encodeURIComponent(subtext)}&avatar=${encodeURIComponent(avatar)}`;
+        )}&text1=${encodeURIComponent(
+            member.user.username
+        )}&text2=${encodeURIComponent(text)}&text3=${encodeURIComponent(
+            subtext
+        )}&avatar=${encodeURIComponent(avatar)}`;
     }
 };

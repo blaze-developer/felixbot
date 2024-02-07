@@ -17,7 +17,9 @@ function readCommand(command) {
             applicationCommands.push(command.data.toJSON());
         }
     } else {
-        console.log(`[WARNING] There is one or more missing field at ${command.path}.`);
+        console.log(
+            `[WARNING] There is one or more missing field at ${command.path}.`
+        );
     }
 }
 
@@ -26,13 +28,17 @@ async function registerCommands() {
         console.log(`Started refreshing ${devServerCommands.length} commands.`);
 
         const devData = await rest.put(
-            Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
+            Routes.applicationGuildCommands(
+                process.env.CLIENT_ID,
+                process.env.GUILD_ID
+            ),
             { body: devServerCommands }
         );
 
-        const publicData = await rest.put(Routes.applicationCommands(process.env.CLIENT_ID), {
-            body: applicationCommands
-        });
+        const publicData = await rest.put(
+            Routes.applicationCommands(process.env.CLIENT_ID),
+            { body: applicationCommands }
+        );
 
         console.log(
             `Successfully refreshed ${devData.length} total commands. ${publicData.length} are publicly available.`

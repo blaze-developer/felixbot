@@ -25,7 +25,10 @@ module.exports = {
         }
 
         if (subcommand === "channel") {
-            const channelId = interaction.options.getChannel("channel", true).id;
+            const channelId = interaction.options.getChannel(
+                "channel",
+                true
+            ).id;
 
             guildData.config.intros.channelId = channelId;
 
@@ -35,7 +38,10 @@ module.exports = {
         }
 
         if (subcommand === "approval-channel") {
-            const channelId = interaction.options.getChannel("channel", true).id;
+            const channelId = interaction.options.getChannel(
+                "channel",
+                true
+            ).id;
 
             guildData.config.intros.approvalChannelId = channelId;
 
@@ -73,7 +79,9 @@ module.exports = {
     },
     data: new SlashCommandBuilder()
         .setName("intros")
-        .setDescription("Configures the intros approval system for this server :3")
+        .setDescription(
+            "Configures the intros approval system for this server :3"
+        )
         .setDMPermission(false)
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addSubcommand((subcommand) =>
@@ -90,7 +98,9 @@ module.exports = {
         .addSubcommand((subcommand) =>
             subcommand
                 .setName("approval-channel")
-                .setDescription("Sets the channel for staff to approve or deny introductions.")
+                .setDescription(
+                    "Sets the channel for staff to approve or deny introductions."
+                )
                 .addChannelOption((option) =>
                     option
                         .setName("channel")

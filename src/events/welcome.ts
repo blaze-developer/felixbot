@@ -20,7 +20,9 @@ module.exports = {
         }
 
         // Gets the channel object to send to
-        const channel = client.channels.cache.get(guildData.config.welcome.channelId);
+        const channel = client.channels.cache.get(
+            guildData.config.welcome.channelId
+        );
 
         if (!channel) {
             return;

@@ -1,38 +1,12 @@
 import mongoose from "mongoose";
 
-interface IGuild {
-    guildId: string;
-    config: {
-        welcome: {
-            channelId: string;
-            message: string;
-            image: {
-                background: string;
-                text: string;
-                subtext: string;
-            };
-            enabled: boolean;
-        };
-        intros: {
-            channelId: string;
-            approvalChannelId: string;
-            enabled: boolean;
-        };
-        ban: {
-            announcement: {
-                enabled: boolean;
-                channel: string;
-            };
-        };
-    };
-}
-
-const guildSchema = new mongoose.Schema<IGuild>({
+const guildSchema = new mongoose.Schema({
     guildId: {
         type: String,
         required: true
     },
     config: {
+        type: Object,
         welcome: {
             channelId: {
                 type: String,
@@ -43,6 +17,7 @@ const guildSchema = new mongoose.Schema<IGuild>({
                 default: "Welcome to the server! <3"
             },
             image: {
+                type: Object,
                 background: {
                     type: String,
                     default:
@@ -77,7 +52,9 @@ const guildSchema = new mongoose.Schema<IGuild>({
             }
         },
         ban: {
+            type: Object,
             announcement: {
+                type: Object,
                 enabled: {
                     type: Boolean,
                     default: false
@@ -92,4 +69,4 @@ const guildSchema = new mongoose.Schema<IGuild>({
     // ,members: [memberSchema]
 });
 
-export default mongoose.model<IGuild>("Guild", guildSchema);
+export default mongoose.model("Guild", guildSchema);
