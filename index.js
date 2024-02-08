@@ -1,10 +1,4 @@
-const {
-    Client,
-    GatewayIntentBits,
-    Collection,
-    EmbedBuilder,
-    time
-} = require("discord.js");
+const { Client, GatewayIntentBits, Collection, EmbedBuilder, time } = require("discord.js");
 const fs = require("node:fs");
 const path = require("node:path");
 const mongoose = require("mongoose");
@@ -36,11 +30,7 @@ for (const folder of subFolders) {
         const commandPath = path.join(folderPath, commandFile);
         const command = require(commandPath);
 
-        if (
-            "data" in command &&
-            "execute" in command &&
-            "category" in command
-        ) {
+        if ("data" in command && "execute" in command && "category" in command) {
             client.commands.set(command.data.name, command);
         } else {
             console.log(
@@ -53,9 +43,7 @@ for (const folder of subFolders) {
 // Events Loading
 
 const eventsFolder = path.join(__dirname, "events");
-const events = fs
-    .readdirSync(eventsFolder)
-    .filter((file) => file.endsWith(".js"));
+const events = fs.readdirSync(eventsFolder).filter((file) => file.endsWith(".js"));
 
 for (const eventFile of events) {
     const eventPath = path.join(eventsFolder, eventFile);
@@ -71,10 +59,8 @@ for (const eventFile of events) {
             try {
                 await event.listener(client, ...args);
             } catch (error) {
-                console.error(error);
-                const channel = client.channels.cache.get(
-                    "1194467447705718856"
-                );
+                console.log(error);
+                const channel = client.channels.cache.get("1204677789421150208");
 
                 channel.send({
                     embeds: [
@@ -82,9 +68,9 @@ for (const eventFile of events) {
                             .setTitle("Event Error!")
                             .setColor(process.env.BOT_COLOR)
                             .setDescription(
-                                `Error for event ${eventFile} at ${time(
-                                    Date.now()
-                                )}\n\n\`\`\`\n${error.stack}\n\`\`\``
+                                `Error for event ${eventFile} at ${time(Date.now())}\n\n\`\`\`\n${
+                                    error.stack
+                                }\n\`\`\``
                             )
                     ]
                 });

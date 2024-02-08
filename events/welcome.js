@@ -1,12 +1,8 @@
 const { Events, AttachmentBuilder } = require("discord.js");
 const Guild = require("../schemas/Guild");
-const {
-    parseStringTemplate,
-    evaluateParsedString,
-    evaluateStringTemplate
-} = require("string-template-parser");
-const { parse } = require("dotenv");
-const PopcatGenerator = require("../modules/PopcatGenerator");
+const { evaluateStringTemplate } = require("string-template-parser");
+
+const WelcomeImage = require("../modules/WelcomeImage");
 
 module.exports = {
     name: Events.GuildMemberAdd,
@@ -21,30 +17,20 @@ module.exports = {
         }
 
         // Gets the channel object to send to
-        const channel = client.channels.cache.get(
-            guildData.config.welcome.channelId
-        );
+        const channel = client.channels.cache.get(guildData.config.welcome.channelId);
 
         if (!channel) {
             return;
         }
+
+        const welcomeImage = await WelcomeImage.welcomeCard(guildData.config.welcome.image, member);
 
         await channel.send({
             content: evaluateStringTemplate(guildData.config.welcome.message, {
                 user: `${member.user}`,
                 server: member.guild.name
             }),
-            files: [
-                {
-                    attachment: PopcatGenerator.generateWelcomeCard(
-                        guildData.config.welcome.image.background,
-                        member,
-                        guildData.config.welcome.image.text,
-                        guildData.config.welcome.image.subtext
-                    ),
-                    name: "card.png"
-                }
-            ]
+            files: [welcomeImage]
         });
     }
 };
