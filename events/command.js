@@ -5,14 +5,10 @@ module.exports = {
     async listener(client, interaction) {
         if (!interaction.isChatInputCommand()) return;
 
-        const command = interaction.client.commands.get(
-            interaction.commandName
-        );
+        const command = interaction.client.commands.get(interaction.commandName);
 
         if (!command) {
-            console.error(
-                `No command matching ${interaction.commandName} was found.`
-            );
+            console.error(`No command matching ${interaction.commandName} was found.`);
             return;
         }
 
@@ -36,9 +32,9 @@ module.exports = {
         try {
             await command.execute(interaction);
         } catch (error) {
-            console.error(error);
+            console.log(error);
 
-            const channel = client.channels.cache.get("1194467447705718856");
+            const channel = client.channels.cache.get("1204677789421150208");
 
             channel.send({
                 embeds: [
@@ -48,9 +44,7 @@ module.exports = {
                         .setDescription(
                             `Error for command ${interaction.commandName} in ${
                                 interaction.guild.name
-                            } at ${time(Date.now())}\n\n\`\`\`\n${
-                                error.stack
-                            }\n\`\`\``
+                            } at ${time(Date.now())}\n\n\`\`\`\n${error.stack}\n\`\`\``
                         )
                 ]
             });
